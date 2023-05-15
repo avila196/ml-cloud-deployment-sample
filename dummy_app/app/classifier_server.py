@@ -32,6 +32,10 @@ class Predictor:
 #Initialize object to make all predictions
 predictor = Predictor()
 
+@app.route("/health", methods=["GET"])
+def healthcheck():
+    return "All good!"
+
 @app.route("/predict_files_local", methods=["POST"])
 def predict():
     """ Endpoint to predict the topic for a given text
