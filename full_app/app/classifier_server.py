@@ -64,7 +64,7 @@ def predict():
             #Read file's content and predict its topic
             with open(file, "r") as f:
                 content = f.read()
-                all_topics.append(predictor.predict(content))
+                all_topics.append(file + ": " + predictor.predict(content))
 
         #For testing, we're just logging all topics into the console. So we return a message for them
         dt = date.today()
