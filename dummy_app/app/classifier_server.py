@@ -37,7 +37,7 @@ def healthcheck():
     return "All good!"
 
 @app.route("/predict_files_local", methods=["POST"])
-def predict():
+def predict_local():
     """ Endpoint to predict the topic for a given text
     ---
     parameters:
