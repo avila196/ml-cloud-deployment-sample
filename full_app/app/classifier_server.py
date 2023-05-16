@@ -76,10 +76,32 @@ def predict():
         return f"Predictions made by {timestamp}: {str(all_topics)}."
     except Exception as e:
         return "Error making predictions: " + str(e)
-    
-#TODO 1: Add /predict endpoint for batch files located in S3 or GS
 
-#TODO 2: Add /predict endpoint for direct prediction (input text)
+@app.route("/predict_single_text", methods=["POST"])
+def predict():
+    """ Endpoint to predict the topic for a given text
+    ---
+    parameters:
+        - name: text
+          in: formData
+          type: string
+          required: true
+          description: Text to classify
+    responses:
+        200:
+            description: Topic found for text
+    """
+    try:
+        text = request.form["text"]
+        prediction = predictor.predict(text)
+        #For testing, we're just logging all topics into the console. So we return a message for them
+        dt = date.today()
+        timestamp = dt.strftime("%d/%m/%Y")
+        return f"Prediction made by {timestamp}: {prediction}."
+    except Exception as e:
+        return "Error making predictions: " + str(e)
+
+#TODO 1: Add /predict endpoint for batch files located in S3 or GS
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
